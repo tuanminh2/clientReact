@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './StudentList.scss';
+
 function StudentList() {
   const [studentList, setStudentList] = useState([]);
   const [name, setName] = useState('');
@@ -16,16 +17,26 @@ function StudentList() {
     setGender(event.target.value);
   };
 
+  const hdlDeleteStudent = (id) => {
+    async function del() {
+      let rs = await axios.delete('http://localhost:8989/student/delete/' + id);
+      return rs.data;
+    }
+    del().then((res) => {
+      setStudentList(studentList.filter((v, i) => v.id !== id));
+    });
+  };
+
   useEffect(() => {
     async function getData() {
-      let rs = await axios.get('http://localhost:8080/student');
+      let rs = await axios.get('http://localhost:8989/student');
       return rs.data;
     }
     getData().then((res) => setStudentList(res));
   }, []);
   useEffect(() => {}, [name, mail, gender]);
   return (
-    <div id='studentListWrapper'>
+    <div id="studentListWrapper">
       <h1 className="title">Student List</h1>
       <div className="search-box">
         <div className="search-item name">
@@ -43,18 +54,21 @@ function StudentList() {
         <div className="search-item gender">
           <p>Gender</p>
           <div className="gender-ratio-container">
+            <p>Male</p>
             <input
               type="radio"
               name="gender"
               value="M"
               onChange={hdlSearchGenderChange}
             />
+             <p>FeMale</p>
             <input
               type="radio"
               name="gender"
               value="F"
               onChange={hdlSearchGenderChange}
             />
+            <p>All</p>
             <input
               type="radio"
               name="gender"
@@ -65,13 +79,42 @@ function StudentList() {
         </div>
       </div>
 
-      <div className="liststudent">
-        {studentList &&
-          studentList.length > 0 &&
-          studentList.map((item, index) => {
-            return <p key={item.id}>{item.name}</p>;
-          })}
-      </div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>team</th>
+            <th>action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {studentList &&
+            studentList.length > 0 &&
+            studentList.map((item, index) => {
+              return (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.gender}</td>
+                  
+                  <td>{item.teams}</td>
+                  <td>
+                    <span
+                      className="del-student-btn"
+                      onClick={() => hdlDeleteStudent(item.id)}
+                    >
+                      <i className="fa fa-trash" aria-hidden="true"></i>
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 #studentListWrapper {
+  height: 100vh;
+  overflow-y: auto;
   width: 80%;
   margin: 0 auto;
   .title {
@@ -38,6 +40,22 @@
         appearance: none;
         border-radius: 0.25rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+    }
+  }
+
+  table{
+    .del-student-btn{
+     
+   
+      i{
+        color: red;
+        font-size: 1.2rem;
+        &:hover{
+          font-size: 1.3rem;
+          color: darkred;
+          cursor: pointer;
+        }
       }
     }
   }
