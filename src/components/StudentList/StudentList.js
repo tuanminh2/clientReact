@@ -1,17 +1,39 @@
+import { ContactsOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './StudentList.scss';
 
 function StudentList() {
   const [studentList, setStudentList] = useState([]);
+  const [studentListCp, setStudentListCp] = useState([]);
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
   const [gender, setGender] = useState('');
   const hdlSearchNameChange = (event) => {
-    setName(event.target.value);
+    let nameSearch = event.target.value;
+    setName(nameSearch);
+    if (nameSearch == '') setStudentListCp(studentList);
+
+    let rslist = studentList.filter(
+      (v, i) => v.name.trim().indexOf(nameSearch.trim()) !== -1
+    );
+    console.log(rslist);
+    console.log('----' + studentListCp);
+    setStudentListCp(rslist);
   };
   const hdlSearchMailChange = (event) => {
-    setMail(event.target.value);
+    let emailSearch = event.target.value;
+    setMail(emailSearch);
+    let rslist = [];
+
+    rslist = studentList.filter(
+      (v, i) => v.email.trim().indexOf(emailSearch.trim()) !== -1
+    );
+    if (studentListCp.length < studentList.length) {
+      rslist= rslist.filter((v, i) => studentListCp.includes(v));
+    }
+
+    setStudentListCp(rslist);
   };
   const hdlSearchGenderChange = (event) => {
     setGender(event.target.value);
@@ -23,7 +45,7 @@ function StudentList() {
       return rs.data;
     }
     del().then((res) => {
-      setStudentList(studentList.filter((v, i) => v.id !== id));
+      setStudentListCp(studentList.filter((v, i) => v.id !== id));
     });
   };
 
@@ -32,7 +54,10 @@ function StudentList() {
       let rs = await axios.get('http://localhost:8989/student');
       return rs.data;
     }
-    getData().then((res) => setStudentList(res));
+    getData().then((res) => {
+      setStudentList(res);
+      setStudentListCp(res);
+    });
   }, []);
   useEffect(() => {}, [name, mail, gender]);
   return (
@@ -61,7 +86,7 @@ function StudentList() {
               value="M"
               onChange={hdlSearchGenderChange}
             />
-             <p>FeMale</p>
+            <p>FeMale</p>
             <input
               type="radio"
               name="gender"
@@ -91,16 +116,16 @@ function StudentList() {
           </tr>
         </thead>
         <tbody>
-          {studentList &&
-            studentList.length > 0 &&
-            studentList.map((item, index) => {
+          {studentListCp &&
+            studentListCp.length > 0 &&
+            studentListCp.map((item, index) => {
               return (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.gender}</td>
-                  
+
                   <td>{item.teams}</td>
                   <td>
                     <span
@@ -119,4 +144,3 @@ function StudentList() {
   );
 }
 export default StudentList;
-//same use -, diff use space
