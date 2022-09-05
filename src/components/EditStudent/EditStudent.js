@@ -19,9 +19,18 @@ function EditStudent() {
 
     let nameinp = document.getElementById('nameInp').value;
     let teamsinp = document.getElementById('teamInp').value;
-    const data = { name: nameinp, teamsinp: teamsinp };
+    const data = { name: nameinp, teams: teamsinp };
     console.log(data);
+    async function postData() {
+      let rs = await axios.put('http://localhost:8989/student/update', data);
+      return rs.data;
+    }
+    postData().then((res) => {
+     console.log("skdfnsjajfsdf", res.id)
+    });
   };
+
+  
   return (
     <div className="wrapper">
       <Drawler></Drawler>
