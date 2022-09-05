@@ -6,7 +6,7 @@ import './StudentList.scss';
 
 function StudentList() {
   const [studentList, setStudentList] = useState([]);
-  const [studentListCp, setStudentListCp] = useState([]);
+ 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
@@ -32,7 +32,7 @@ function StudentList() {
       return rs.data;
     }
     del().then((res) => {
-      setStudentListCp(studentList.filter((v, i) => v.id !== id));
+      setStudentList(studentList.filter((v, i) => v.id !== id));
     });
   };
 
@@ -43,10 +43,10 @@ function StudentList() {
     }
     getData().then((res) => {
       setStudentList(res);
-      setStudentListCp(res);
+ 
     });
   }, []);
-  useEffect(() => {}, [name, email, gender]);
+ 
   return (
     <div className="wrapper">
       <Drawler></Drawler>
@@ -105,9 +105,9 @@ function StudentList() {
             </tr>
           </thead>
           <tbody>
-            {studentListCp &&
-              studentListCp.length > 0 &&
-              studentListCp.map((item, index) => {
+            {studentList &&
+              studentList.length > 0 &&
+              studentList.map((item, index) => {
                 return (
                   <tr key={item.id}>
                     <td>{item.id}</td>

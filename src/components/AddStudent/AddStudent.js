@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './AddStudent.scss';
+import Drawler from '../Drawler/Drawler';
 function AddStudent() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -43,6 +44,8 @@ function AddStudent() {
 
   const teamlist = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5'];
   return (
+    <div className="wrapper">
+    <Drawler></Drawler>
     <div id="addStudentWrapper">
       <h1 className="title">Add Student</h1>
 
@@ -91,6 +94,7 @@ function AddStudent() {
           CREATE
         </button>
       </form>
+    </div>
     </div>
   );
 }

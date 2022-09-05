@@ -14,9 +14,9 @@ function App() {
     <>
      
       <Routes>
-        <Route path="/" element={<StudentList />} />
-        <Route path="add" element={<AddStudent />} />
-        <Route path="edit" element={<EditStudent />} />
+        <Route path="/student" element={<StudentList />} />
+        <Route path="/student/add" element={<AddStudent />} />
+        <Route path="/student/edit" element={<EditStudent />} />
       </Routes>
     </>
   );

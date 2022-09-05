@@ -46,7 +46,7 @@ function Drawler() {
               className="divider"
             />
             <div className="main-list">
-              <a href="#/" className="main-list-item"    onClick={() => {
+              <a href="" className="main-list-item"    onClick={() => {
               navigate('/calendar');
             }}>
                 <div className="main-list-item__icon">
@@ -56,8 +56,8 @@ function Drawler() {
                   <div className="list-item__title">Calender</div>
                 </div>
               </a>
-              <a href="#/tasks" className="main-list-item"    onClick={() => {
-              navigate('/tasks');
+              <a href="" className="main-list-item"    onClick={() => {
+              navigate('/task');
             }}>
                 <div className="main-list-item__icon">
                   <i className="fas fa-user-alt"></i>
@@ -67,11 +67,11 @@ function Drawler() {
                 </div>
               </a>
               <a
-                href="#/studentlist"
+                href=""
                 aria-current="page"
                 className="main-list-item"
                 onClick={() => {
-                    navigate('/students');
+                    navigate('/student');
                   }}
               >
                 <div className="main-list-item__icon">
@@ -81,7 +81,9 @@ function Drawler() {
                   <div className="main-list-item__title">Student List</div>
                 </div>
               </a>
-              <a href="#/addstudent" className="main-list-item">
+              <a href="" className="main-list-item"  onClick={() => {
+                    navigate('/student/add');
+                  }}>
                 <div className="main-list-item__icon">
                   <i className="fas fa-user-alt"></i>
                 </div>
@@ -89,7 +91,9 @@ function Drawler() {
                   <div className="main-list-item__title">Add a Student</div>
                 </div>
               </a>
-              <a href="#/assignteam" className="main-list-item">
+              <a href="" className="main-list-item"  onClick={() => {
+                    navigate('/student/edit');
+                  }}>
                 <div className="main-list-item__icon">
                   <i className="fas fa-user-alt"></i>
                 </div>
@@ -97,7 +101,9 @@ function Drawler() {
                   <div className="main-list-item__title">Assign Teams</div>
                 </div>
               </a>
-              <a href="#/about" className="main-list-item">
+              <a href="" className="main-list-item"  onClick={() => {
+                    navigate('/about');
+                  }}>
                 <div className="main-list-item__icon">
                   <i className="fas fa-user-alt"></i>
                 </div>
@@ -105,7 +111,9 @@ function Drawler() {
                   <div className="main-list-item__title">About</div>
                 </div>
               </a>
-              <a href="#/logout" className="main-list-item">
+              <a href="" className="main-list-item"  onClick={() => {
+                    navigate('/logout');
+                  }}>
                 <div className="main-list-item__icon">
                   <i className="fas fa-user-alt"></i>
                 </div>
