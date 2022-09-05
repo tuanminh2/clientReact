@@ -26,11 +26,13 @@ function EditStudent() {
       return rs.data;
     }
     postData().then((res) => {
-     console.log("skdfnsjajfsdf", res.id)
+      let idx = studentList.findIndex((stu) => stu.id == res.id);
+      let studentListCp = [...studentList];
+      studentListCp[idx]= res;
+      setStudentList(studentListCp)
     });
   };
 
-  
   return (
     <div className="wrapper">
       <Drawler></Drawler>
@@ -66,7 +68,7 @@ function EditStudent() {
         <div className="row">
           <h2>Reassign a team for an existing student</h2>
         </div>
-        <form >
+        <form>
           <div className="form-group">
             <label>Name</label>
             <input id="nameInp" className="form-control" />
