@@ -26,11 +26,12 @@ function StudentList() {
     console.log('----->', nameSearch);
     let rslist = [];
 
-    if (email) {
+    if (email || gender) {
       rslist = listcp.filter(
         (v, i) =>
           v.name.trim().indexOf(nameSearch.trim()) !== -1 &&
-          v.email.trim().indexOf(email.trim()) !== -1
+          v.email.trim().indexOf(email.trim()) !== -1 &&
+          v.gender.trim().indexOf(gender.trim()) !== -1
       );
     } else {
       rslist = listcp.filter(
@@ -49,11 +50,12 @@ function StudentList() {
     console.log('----->', emailSearch);
     let rslist = [];
 
-    if (name) {
+    if (name || gender) {
       rslist = listcp.filter(
         (v, i) =>
           v.name.trim().indexOf(name.trim()) !== -1 &&
-          v.email.trim().indexOf(emailSearch.trim()) !== -1
+          v.email.trim().indexOf(emailSearch.trim()) !== -1 &&
+          v.gender.trim().indexOf(gender.trim()) !== -1
       );
     } else {
       rslist = listcp.filter(
