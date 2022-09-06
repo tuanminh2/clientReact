@@ -1,34 +1,33 @@
 import React from 'react';
 import axios from 'axios';
 function Login() {
-  const hdlLogin = (event) => {
-    event.preventDefault();
-    let usernameInp = document.getElementById('usernameInp');
-    let passwordInp = document.getElementById('passwordInp');
+  const hdlLogin = async () => {
+    // event.preventDefault();
+    let usernameInp = document.getElementById('usernameInp').value;
+    let passwordInp = document.getElementById('passwordInp').value;
 
     // console.log(newuser);
-    axios({
-      method: 'post',
-      url: 'http://localhost:8989/login',
-      params: {
-        username: usernameInp,
-        password: passwordInp,
-      },
-      config: {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      },
-    })
-      .then((res) => console.log("sdkfjsakfjsdf", res))
-      .catch((error) => {
-        let errResp = error.response;
-        console.log("sjfjsfjssdf",error)
-        // if (errResp.status === 401) {
-      
-        // }
+    const a = {
+      username: usernameInp,
+      password: passwordInp,
+    };
+    console.log(a);
+    async function authen() {
+      let rs = await axios.post('http://localhost:8989/au/dn', a);
+
+      return rs.data;
+    }
+    authen()
+      .then((res) => {
+        console.log("SUCCESS",  res.token);
+      })
+      .catch((err) => {
+        console.log("FAILED", err);
       });
   };
   return (
-    <div action="http://localhost:8989/login" method="post">
+    // action="http://localhost:8989/login" method="post"
+    <div>
       <div className="form-group">
         <label> User name</label>
         <input
@@ -49,9 +48,9 @@ function Login() {
       </div>
 
       <button
-        type="submit"
-        onClick={(event) => hdlLogin(event)}
+        // onClick={(event) => hdlLogin(event)}
         className="btn btn-primary"
+        onClick={hdlLogin}
       >
         Submit
       </button>
@@ -59,3 +58,4 @@ function Login() {
   );
 }
 export default Login;
+// localStorage.setItem('jwtToken', response.data.token);
