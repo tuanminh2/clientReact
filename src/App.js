@@ -12,7 +12,11 @@ import Register from './components/Auth/Register';
 
 function App() {
   // Instantiation
-
+  const checkValidToken = () => {
+    const token = localStorage.getItem('jwtToken');
+    if(!token) return false;
+    return true;
+  }
   return (
     <>
       <Routes>
