@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
+  let navigate = useNavigate();
   const hdlLogin = async () => {
     // event.preventDefault();
     let usernameInp = document.getElementById('usernameInp').value;
@@ -19,43 +23,53 @@ function Login() {
     }
     authen()
       .then((res) => {
-        console.log("SUCCESS",  res.token);
-        localStorage.setItem("jwtToken", res.token);
+        console.log('SUCCESS', res.token);
+        localStorage.setItem('jwtToken', res.token);
+        navigate('/student');
       })
       .catch((err) => {
-        console.log("FAILED", err);
+        alert('LOGIN FAILED');
+        console.log('FAILED', err);
       });
   };
   return (
     // action="http://localhost:8989/login" method="post"
-    <div>
-      <div className="form-group">
-        <label> User name</label>
-        <input
-          type="text"
-          name="username"
-          id="usernameInp"
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          id="passwordInp"
-          className="form-control"
-        />
+    <>
+      <div>
+        <div className="form-group">
+          <label> User name</label>
+          <input
+            type="text"
+            name="username"
+            id="usernameInp"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            id="passwordInp"
+            className="form-control"
+          />
+        </div>
+
+        <button
+          // onClick={(event) => hdlLogin(event)}
+          className="btn btn-primary"
+          onClick={hdlLogin}
+        >
+          Submit
+        </button>
       </div>
 
-      <button
-        // onClick={(event) => hdlLogin(event)}
-        className="btn btn-primary"
-        onClick={hdlLogin}
-      >
-        Submit
-      </button>
-    </div>
+      <div className="col-12 row">
+        <button onClick={() => navigate('/register')}>
+          Create new account
+        </button>
+      </div>
+    </>
   );
 }
 export default Login;
