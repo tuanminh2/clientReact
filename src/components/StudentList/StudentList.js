@@ -6,7 +6,7 @@ import './StudentList.scss';
 
 function StudentList() {
   const [studentList, setStudentList] = useState([]);
- 
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
@@ -36,17 +36,33 @@ function StudentList() {
     });
   };
 
+  // method:'GET',
+  // url:`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/userinfo`,
+  // headers:{
+  //     'Authorization':'Bearer '+getToken()
+  // }
+
+  const getToken = () => {
+    return localStorage.getItem('jwtToken');
+  };
   useEffect(() => {
+    console.log('-------------', getToken());
     async function getData() {
-      let rs = await axios.get('http://localhost:8989/student');
+      let rs = await axios.get(
+        'http://localhost:8989/student',
+        {
+          headers: {
+            'Authorization': 'Bearer '+getToken(),
+          },
+        }
+      );
       return rs.data;
     }
     getData().then((res) => {
       setStudentList(res);
- 
     });
   }, []);
- 
+
   return (
     <div className="wrapper">
       <Drawler></Drawler>

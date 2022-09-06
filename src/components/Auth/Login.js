@@ -20,6 +20,7 @@ function Login() {
     authen()
       .then((res) => {
         console.log("SUCCESS",  res.token);
+        localStorage.setItem("jwtToken", res.token);
       })
       .catch((err) => {
         console.log("FAILED", err);
@@ -59,3 +60,8 @@ function Login() {
 }
 export default Login;
 // localStorage.setItem('jwtToken', response.data.token);
+// method:'GET',
+// url:`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/userinfo`,
+// headers:{
+//     'Authorization':'Bearer '+getToken()
+// }
