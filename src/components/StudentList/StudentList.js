@@ -11,8 +11,8 @@ function StudentList() {
     return localStorage.getItem('jwtToken');
   };
 
-  
   const [studentList, setStudentList] = useState([]);
+  const [studentListCp, setStudentListCp] = useState([]);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -21,13 +21,47 @@ function StudentList() {
     let nameSearch = event.target.value;
     setName(nameSearch);
 
-    // let rslist = studentList.filter(
-    //   (v, i) => v.name.trim().indexOf(nameSearch.trim()) !== -1
-    // );
+    let listcp = [...studentList];
+
+    console.log('----->', nameSearch);
+    let rslist = [];
+
+    if (email) {
+      rslist = listcp.filter(
+        (v, i) =>
+          v.name.trim().indexOf(nameSearch.trim()) !== -1 &&
+          v.email.trim().indexOf(email.trim()) !== -1
+      );
+    } else {
+      rslist = listcp.filter(
+        (v, i) => v.name.trim().indexOf(nameSearch.trim()) !== -1
+      );
+    }
+
+    setStudentListCp(rslist);
   };
   const hdlSearchMailChange = (event) => {
     let emailSearch = event.target.value;
     setEmail(emailSearch);
+
+    let listcp = [...studentList];
+
+    console.log('----->', emailSearch);
+    let rslist = [];
+
+    if (name) {
+      rslist = listcp.filter(
+        (v, i) =>
+          v.name.trim().indexOf(name.trim()) !== -1 &&
+          v.email.trim().indexOf(emailSearch.trim()) !== -1
+      );
+    } else {
+      rslist = listcp.filter(
+        (v, i) => v.email.trim().indexOf(emailSearch.trim()) !== -1
+      );
+    }
+
+    setStudentListCp(rslist);
   };
   const hdlSearchGenderChange = (event) => {
     setGender(event.target.value);
@@ -68,9 +102,9 @@ function StudentList() {
     }
     getData().then((res) => {
       setStudentList(res);
+      setStudentListCp(res);
     });
   }, []);
-
 
   let token = getToken();
   if (token) {
@@ -137,9 +171,9 @@ function StudentList() {
                 </tr>
               </thead>
               <tbody>
-                {studentList &&
-                  studentList.length > 0 &&
-                  studentList.map((item, index) => {
+                {studentListCp &&
+                  studentListCp.length > 0 &&
+                  studentListCp.map((item, index) => {
                     return (
                       <tr key={item.id}>
                         <td>{item.id}</td>
